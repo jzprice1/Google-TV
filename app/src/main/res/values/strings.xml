@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Recents Switcher</string>
+    <string name="service_description">Listens for one remote button and shows a list of recently used apps over whatever is on screen.</string>
+</resources>
