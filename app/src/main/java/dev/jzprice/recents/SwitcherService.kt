@@ -67,28 +67,14 @@ class SwitcherService : AccessibilityService() {
     override fun onKeyEvent(event: KeyEvent): Boolean {
         val code = event.keyCode
         val down = event.action == KeyEvent.ACTION_DOWN
-        val trigger = Prefs.triggerKey(this)
 
-        if (down && event.repeatCount == 0) {
-            Log.d(TAG, "key ${KeyEvent.keyCodeToString(code)} ($code)")
-        }
-
-        if (overlay == null) {
-            if (trigger != 0 && code == trigger) {
-                if (down && event.repeatCount == 0) show()
-                return true
-            }
-            return false
-        }
+        // Only act while the overlay is open; everything else passes through untouched.
+        if (overlay == null) return false
 
         // Overlay is open: keep it alive while the user is interacting.
         handler.removeCallbacks(autoHide)
         handler.postDelayed(autoHide, AUTO_HIDE_MS)
 
-        if (trigger != 0 && code == trigger) {
-            if (down && event.repeatCount == 0) hide()
-            return true
-        }
         when (code) {
             KeyEvent.KEYCODE_BACK -> {
                 if (!down) hide()
@@ -109,6 +95,11 @@ class SwitcherService : AccessibilityService() {
             }
         }
         return false // volume etc. pass through
+    }
+
+    /** Opens the overlay, or closes it if it is already open (so one mapped button toggles it). */
+    fun toggle() {
+        if (overlay != null) hide() else show()
     }
 
     fun show() {

@@ -25,9 +25,13 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Material.NoActionBar">
 
+        <!-- No UI: launching the app toggles the switcher overlay, then the activity exits. -->
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:taskAffinity=""
+            android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -35,13 +39,11 @@
             </intent-filter>
         </activity>
 
-        <!-- No UI. Start it from adb or a button-remapper app to show the switcher. -->
-        <activity
+        <!-- Keeps the old adb command working. -->
+        <activity-alias
             android:name=".TriggerActivity"
-            android:excludeFromRecents="true"
             android:exported="true"
-            android:taskAffinity=""
-            android:theme="@android:style/Theme.NoDisplay" />
+            android:targetActivity=".MainActivity" />
 
         <service
             android:name=".SwitcherService"
