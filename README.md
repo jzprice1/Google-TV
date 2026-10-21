@@ -1,10 +1,14 @@
 # Recents Switcher (prototype)
 
-Launching the app shows a vertical list of recently used apps over whatever is
-on screen. Up/Down moves, OK launches the selected app, Back closes. Launching
-the app again while the list is open closes it, so one mapped button toggles it.
-The overlay never takes window focus, so whatever is playing underneath keeps
-playing.
+Launching the app shows a small centered list of recently used apps over
+whatever is on screen. Up/Down moves, OK launches the selected app, Back closes.
+Launching the app again while the list is open closes it, so one mapped button
+toggles it. The overlay never takes window focus, so whatever is playing
+underneath keeps playing.
+
+**Hiding apps:** press D-pad Right on an app to open a small options menu:
+"Hide <app>" plus "Show <app>" for every app you've hidden. OK runs the option,
+Left or Back returns to the list. Hidden apps are remembered across restarts.
 
 There is no settings screen. Map any remote button to launch
 **Recents Switcher** (package `dev.jzprice.recents`) with your button-remapper

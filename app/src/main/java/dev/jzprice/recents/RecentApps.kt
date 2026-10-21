@@ -58,9 +58,10 @@ object RecentApps {
         val homeIntent = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
         val homePkgs = pm.queryIntentActivities(homeIntent, 0).map { it.activityInfo.packageName }.toSet()
 
+        val hidden = HiddenApps.all(ctx)
         val result = ArrayList<Entry>()
         for ((pkg, _) in lastUsed.entries.sortedByDescending { it.value }) {
-            if (pkg == ctx.packageName || pkg in homePkgs || pkg in ALWAYS_SKIP) continue
+            if (pkg == ctx.packageName || pkg in homePkgs || pkg in ALWAYS_SKIP || pkg in hidden) continue
             val launch = pm.getLeanbackLaunchIntentForPackage(pkg)
                 ?: pm.getLaunchIntentForPackage(pkg)
                 ?: continue
